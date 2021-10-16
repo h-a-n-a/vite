@@ -54,6 +54,18 @@ export async function vueMiddleware(
     filename,
     true /* save last accessed descriptor on the client */
   )
+  console.log(
+    '[parsed]======\n',
+    parsed,
+    '\n[pathname]======\n',
+    pathname,
+    '\n[query]======\n',
+    query,
+    '\n[filename]======\n',
+    filename,
+    '\n[descriptor]======\n',
+    descriptor
+  )
   if (!descriptor) {
     res.statusCode = 404
     return res.end()
@@ -140,6 +152,7 @@ function compileSFCTemplate(
   if (errors) {
     // TODO
   }
+  console.log('\n[compileSFCTemplate code]====\n', code)
   sendJS(res, code)
 }
 
@@ -157,6 +170,7 @@ function compileSFCStyle(
     id: `data-v-${id}`,
     scoped: style.scoped != null
   })
+  console.log('\n[compileSFCStyle code]====\n', code)
   // TODO css modules
 
   if (errors) {

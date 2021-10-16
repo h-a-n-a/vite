@@ -39,6 +39,8 @@ export function resolveModule(id: string, cwd: string, res: ServerResponse) {
       }
     }
 
+    console.log('module resolved', modulePath)
+
     sendJSStream(res, modulePath)
   } catch (e) {
     console.error(e)

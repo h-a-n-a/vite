@@ -5,15 +5,19 @@ declare var __VUE_HMR_RUNTIME__: HMRRuntime
 
 const socket = new WebSocket(`ws://${location.host}`)
 
+console.log(123, __VUE_HMR_RUNTIME__)
+
 // Listen for messages
 socket.addEventListener('message', ({ data }) => {
   const { type, path, id, index } = JSON.parse(data)
+  console.log(data)
   switch (type) {
     case 'connected':
       console.log(`[vite] connected.`)
       break
     case 'reload':
       import(`${path}?t=${Date.now()}`).then((m) => {
+        console.log('reload module', m)
         __VUE_HMR_RUNTIME__.reload(path, m.default)
         console.log(`[vite] ${path} reloaded.`)
       })
