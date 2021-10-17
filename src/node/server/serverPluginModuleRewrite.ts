@@ -97,6 +97,13 @@ export const moduleRewritePlugin: ServerPlugin = ({
         const importer = removeUnRelatedHmrQuery(
           resolver.normalizePublicPath(ctx.url)
         )
+        console.log(
+          '\n[ModuleRewrite]====\nroot:\n%s\ncontent:\n%s\nimporter:\n%s\nctx.query.t:\n%s\n',
+          root,
+          content,
+          importer,
+          ctx.query.t
+        )
         ctx.body = rewriteImports(
           root,
           content!,
@@ -161,6 +168,20 @@ export function rewriteImports(
       const prevImportees = importeeMap.get(importer)
       const currentImportees = new Set<string>()
       importeeMap.set(importer, currentImportees)
+
+      /**
+       * Track importer 对应的 importees
+       * importeeMap 中 key 为 importer，value 为 importee Set
+       * 即 importer 对应的依赖(importees)
+       */
+
+      // console.log(
+      //   '\n[ModuleRewrite]====\nprevImportees:\n%s\ncurrentImportees:\n%s\nimporteeMap:\n%s\nimporterMap:\n%s\n',
+      //   prevImportees,
+      //   currentImportees,
+      //   importeeMap,
+      //   importerMap
+      // )
 
       for (let i = 0; i < imports.length; i++) {
         const {
@@ -228,8 +249,10 @@ export function rewriteImports(
             // no need to track hmr client or module dependencies
             importee !== clientPublicPath
           ) {
+            // track 当前文件 import 了哪些 importee
             currentImportees.add(importee)
             debugHmr(`        ${importer} imports ${importee}`)
+            // track importee 被哪些 importer import
             ensureMapEntry(importerMap, importee).add(importer)
           }
         } else if (id !== 'import.meta' && !hasViteIgnore) {
@@ -287,6 +310,7 @@ export function rewriteImports(
   }
 }
 
+// 解析单个 import 语句
 export const resolveImport = (
   root: string,
   importer: string,

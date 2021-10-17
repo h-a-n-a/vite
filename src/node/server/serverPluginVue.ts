@@ -190,6 +190,11 @@ export const vuePlugin: ServerPlugin = ({
     const publicPath = resolver.fileToRequest(filePath)
     const cacheEntry = vueCache.get(filePath)
     const { send } = watcher
+    console.log(
+      '[handleVueReload=======]\nfilePath:\n%s\npublicPath:\n%s\n',
+      filePath,
+      publicPath
+    )
 
     debugHmr(`busting Vue cache for ${filePath}`)
     vueCache.del(filePath)

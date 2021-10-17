@@ -5,6 +5,7 @@ export const foo = 1
 if (import.meta.hot) {
   import.meta.hot.accept(({ foo }) => {
     console.log('(self-accepting)1.foo is now:', foo)
+    console.log('detected')
   })
 
   import.meta.hot.accept(({ foo }) => {
@@ -16,10 +17,10 @@ if (import.meta.hot) {
   })
 
   import.meta.hot.acceptDeps('./testHmrManualDep.js', ({ foo }) => {
-    console.log('(single dep) foo is now:', foo)
+    console.log('testHmrManualDep (single dep) foo is now:', foo)
   })
 
   import.meta.hot.acceptDeps(['./testHmrManualDep.js'], (modules) => {
-    console.log('(multiple deps) foo is now:', modules[0].foo)
+    console.log('testHmrManualDep (multiple deps) foo is now:', modules[0].foo)
   })
 }

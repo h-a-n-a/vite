@@ -1,37 +1,37 @@
 <template>
   <h1>Vite Playground</h1>
-  <TestEnv />
-  <TestDefine />
-  <h2>Async Component</h2>
-  <TestAsync />
-  <TestModuleResolve />
+<!--  <TestEnv />-->
+<!--  <TestDefine />-->
+<!--  <h2>Async Component</h2>-->
+<!--  <TestAsync />-->
+<!--  <TestModuleResolve />-->
   <TestHmr />
-  <TestPostCss />
-  <TestScopedCss />
-  <TestCssModules />
-  <TestCssAtImport />
-  <TestPreprocessors />
-  <TestScssAtImport/>
-  <TestAssets />
-  <TestSrcImport />
-  <TestJsonImport />
-  <TestTs />
-  <TestJsx />
-  <TestAlias />
-  <TestTransform />
-  <TestRewriteOptimized />
-  <TestCustomBlocks />
-  <TestOptimizeLink />
-  <TestRewriteUnoptimized />
-  <TestNormalizePublicPath />
-  <TestDynamicImport />
-  <TestWebWorker />
-  <Suspense>
-    <TestWasm />
-  </Suspense>
-  <TestScriptSetupStyleVars msg="Test message" />
-  <TestSyntax />
-  <TestCjsDepNamedExport />
+<!--  <TestPostCss />-->
+<!--  <TestScopedCss />-->
+<!--  <TestCssModules />-->
+<!--  <TestCssAtImport />-->
+<!--  <TestPreprocessors />-->
+<!--  <TestScssAtImport/>-->
+<!--  <TestAssets />-->
+<!--  <TestSrcImport />-->
+<!--  <TestJsonImport />-->
+<!--  <TestTs />-->
+<!--  <TestJsx />-->
+<!--  <TestAlias />-->
+<!--  <TestTransform />-->
+<!--  <TestRewriteOptimized />-->
+<!--  <TestCustomBlocks />-->
+<!--  <TestOptimizeLink />-->
+<!--  <TestRewriteUnoptimized />-->
+<!--  <TestNormalizePublicPath />-->
+<!--  <TestDynamicImport />-->
+<!--  <TestWebWorker />-->
+<!--  <Suspense>-->
+<!--    <TestWasm />-->
+<!--  </Suspense>-->
+<!--  <TestScriptSetupStyleVars msg="Test message" />-->
+<!--  <TestSyntax />-->
+<!--  <TestCjsDepNamedExport />-->
 </template>
 
 <script>

@@ -51,6 +51,7 @@ export type HMRWatcher = FSWatcher & {
 // so that we can determine what files to hot reload
 type HMRStateMap = Map<string, Set<string>>
 
+// key 为 接收 hmr 的文件，value 为愿意接收的依赖 Set，如果 key 与 value 中的值相同，表明开了 self-accept
 export const hmrAcceptanceMap: HMRStateMap = new Map()
 export const hmrDeclineSet = new Set<string>()
 export const importerMap: HMRStateMap = new Map()
@@ -121,6 +122,9 @@ export const hmrPlugin: ServerPlugin = ({
     }
 
     const publicPath = resolver.fileToRequest(filePath)
+    /**
+     * 找到当前 js 被哪些文件引用了
+     */
     const importers = importerMap.get(publicPath)
     if (importers || isHmrAccepted(publicPath, publicPath)) {
       const hmrBoundaries = new Set<string>()
@@ -153,6 +157,7 @@ export const hmrPlugin: ServerPlugin = ({
           chalk.green(`[vite:hmr] `) +
             `${file} hot updated due to change in ${relativeFile}.`
         )
+        // 从内层到外层通知所有 boundary 更新
         send({
           type: 'multi',
           updates: boundaries.map((boundary) => {
@@ -180,8 +185,8 @@ export const hmrPlugin: ServerPlugin = ({
 }
 
 function walkImportChain(
-  importee: string,
-  importers: Set<string>,
+  importee: string, // 当前被引用的文件
+  importers: Set<string>, // 引用了被引用的文件的文件
   hmrBoundaries: Set<string>,
   dirtyFiles: Set<string>,
   currentChain: string[] = []
@@ -199,6 +204,7 @@ function walkImportChain(
   }
 
   for (const importer of importers) {
+    // 判断是否存在 boundary
     if (
       importer.endsWith('.vue') ||
       // explicitly accepted by this importer
@@ -210,20 +216,24 @@ function walkImportChain(
       if (importer.endsWith('.vue')) {
         dirtyFiles.add(importer)
       }
+      // 逐层收集所有 hmrBoundary ，所有 boundary 都要通知到，添加的顺序是从内层到外层
       hmrBoundaries.add(importer)
       currentChain.forEach((file) => dirtyFiles.add(file))
     } else {
+      // 找到引用了 importer 的 上层 importers
       const parentImpoters = importerMap.get(importer)
+      // 找不到 上级 importers 并且当前 importer 并不是一个 boundary 只能返回是 deadEnd 表明无法支持热更新
       if (!parentImpoters) {
         return true
       } else if (!currentChain.includes(importer)) {
+        // 如果已经遍历过则跳过
         if (
           walkImportChain(
             importer,
             parentImpoters,
             hmrBoundaries,
             dirtyFiles,
-            currentChain.concat(importer)
+            currentChain.concat(importer) // 记录已经遍历过
           )
         ) {
           return true
@@ -234,6 +244,7 @@ function walkImportChain(
   return false
 }
 
+// 判断 importer 是否接收 dep 依赖
 function isHmrAccepted(importer: string, dep: string): boolean {
   const deps = hmrAcceptanceMap.get(importer)
   return deps ? deps.has(dep) : false
@@ -248,6 +259,7 @@ export function ensureMapEntry(map: HMRStateMap, key: string): Set<string> {
   return entry
 }
 
+// 文件含有 import.meta.hot 时，说明该文件接收 hmr，需要将愿意接收的 dep 注册到 hmrAcceptanceMap 中
 export function rewriteFileWithHMR(
   root: string,
   source: string,
@@ -257,11 +269,13 @@ export function rewriteFileWithHMR(
 ) {
   let hasDeclined = false
 
+  // 注册 accept 的依赖
   const registerDep = (e: StringLiteral) => {
     const deps = ensureMapEntry(hmrAcceptanceMap, importer)
     const depPublicPath = resolveImport(root, importer, e.value, resolver)
     deps.add(depPublicPath)
     debugHmr(`        ${importer} accepts ${depPublicPath}`)
+    // 确保 importerMap 中 dep 被 importer 引用
     ensureMapEntry(importerMap, depPublicPath).add(importer)
     s.overwrite(e.start!, e.end!, JSON.stringify(depPublicPath))
   }

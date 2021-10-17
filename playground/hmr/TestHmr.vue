@@ -12,7 +12,7 @@
   <p>
     <span>
       HMR: edit the return value of <code>foo()</code> in
-      <code>./testHmrPropagation.js</code>, should update without reloading
+      <code>./testHmrPropagation.js</code>, should update without reloading!
       page:
     </span>
     <span class="hmr-propagation">{{ foo() }}</span>

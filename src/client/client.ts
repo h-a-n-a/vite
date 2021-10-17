@@ -64,6 +64,10 @@ async function handleMessage(payload: HMRPayload) {
     case 'connected':
       console.log(`[vite] connected.`)
       break
+
+    /**
+     * Vue Related HMR Runtime https://github.com/vuejs/vue-next/blob/9e3d7731c7839638f49157123c6b372fec9e4d46/packages/runtime-core/src/hmr.ts
+     */
     case 'vue-reload':
       queueUpdate(
         import(`${path}?t=${timestamp}`)
