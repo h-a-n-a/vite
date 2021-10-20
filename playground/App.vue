@@ -5,7 +5,7 @@
 <!--  <h2>Async Component</h2>-->
 <!--  <TestAsync />-->
 <!--  <TestModuleResolve />-->
-  <TestHmr />
+<!--  <TestHmr />-->
 <!--  <TestPostCss />-->
 <!--  <TestScopedCss />-->
 <!--  <TestCssModules />-->
@@ -31,7 +31,7 @@
 <!--  </Suspense>-->
 <!--  <TestScriptSetupStyleVars msg="Test message" />-->
 <!--  <TestSyntax />-->
-<!--  <TestCjsDepNamedExport />-->
+  <TestCjsDepNamedExport />
 </template>
 
 <script>

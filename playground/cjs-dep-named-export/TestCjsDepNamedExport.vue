@@ -41,7 +41,11 @@ export default {
     const dynamicImport = ref('dynamic not loaded')
     function loadDynamic() {
       // dynamic import cjs dep and get named-export
-      import('react-dom').then(({ render }) => {
+
+      // error because of static parse failed
+      const react = 'react'
+      const dom = 'dom'
+      import(`${react}-${dom}`).then(({ render }) => {
         dynamicImport.value = isFunction(render) ? 'success' : 'fail'
       })
     }

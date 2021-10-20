@@ -100,6 +100,8 @@ export const transform = async (
       }
     }
 
+    console.log(`[====== esbuild plugin] code:%s`, code)
+
     return {
       code,
       map: result.map
