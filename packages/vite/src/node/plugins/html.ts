@@ -17,7 +17,8 @@ import {
   slash
 } from '../utils'
 import type { ResolvedConfig } from '../config'
-import MagicString from 'magic-string'
+// import MagicString from 'magic-string'
+import { MagicString } from '@napi-rs/magic-string'
 import {
   checkPublicFile,
   assetUrlRE,

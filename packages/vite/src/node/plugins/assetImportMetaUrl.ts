@@ -1,5 +1,6 @@
 import type { Plugin } from '../plugin'
-import MagicString from 'magic-string'
+// import MagicString from 'magic-string'
+import { MagicString } from '@napi-rs/magic-string'
 import path from 'path'
 import { fileToUrl } from './asset'
 import type { ResolvedConfig } from '../config'

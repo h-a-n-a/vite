@@ -2,7 +2,8 @@
 const path = require('path')
 const { createHash } = require('crypto')
 const { build } = require('vite')
-const MagicString = require('magic-string').default
+// const MagicString = require('magic-string').default
+const MagicString = require('@napi-rs/magic-string').MagicString
 
 // lazy load babel since it's not used during dev
 let babel

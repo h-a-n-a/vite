@@ -1,6 +1,7 @@
 import fs from 'fs'
 import path from 'path'
-import MagicString from 'magic-string'
+// import MagicString from 'magic-string'
+import { MagicString } from '@napi-rs/magic-string'
 import type { AttributeNode } from '@vue/compiler-dom'
 import { NodeTypes } from '@vue/compiler-dom'
 import type { Connect } from 'types/connect'

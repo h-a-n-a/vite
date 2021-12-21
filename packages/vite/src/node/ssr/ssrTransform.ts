@@ -1,4 +1,5 @@
-import MagicString from 'magic-string'
+// import MagicString from 'magic-string'
+import { MagicString } from '@napi-rs/magic-string'
 import type { SourceMap } from 'rollup'
 import type { TransformResult } from '../server/transformRequest'
 import { parser } from '../server/pluginContainer'

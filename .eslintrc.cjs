@@ -63,7 +63,7 @@ module.exports = defineConfig({
     'node/no-extraneous-import': [
       'error',
       {
-        allowModules: ['vite', 'less', 'sass']
+        allowModules: ['vite', 'less', 'sass', '@napi-rs/magic-string'] // FIXME: temporary
       }
     ],
     'node/no-extraneous-require': [

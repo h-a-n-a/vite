@@ -3,7 +3,7 @@ import { parse } from '@babel/parser'
 import type { File } from '@babel/types'
 import chalk from 'chalk'
 import { readdirSync, readFileSync, statSync, writeFileSync } from 'fs'
-import MagicString from 'magic-string'
+import { MagicString } from '@napi-rs/magic-string'
 import { dirname, relative, resolve } from 'path'
 
 const tempDir = resolve(__dirname, '../temp/node')

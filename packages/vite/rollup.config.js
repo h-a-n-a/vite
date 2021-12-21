@@ -7,7 +7,8 @@ import commonjs from '@rollup/plugin-commonjs'
 import json from '@rollup/plugin-json'
 import alias from '@rollup/plugin-alias'
 import license from 'rollup-plugin-license'
-import MagicString from 'magic-string'
+// import MagicString from 'magic-string'
+import { MagicString } from '@napi-rs/magic-string'
 import chalk from 'chalk'
 import fg from 'fast-glob'
 import { sync as resolve } from 'resolve'
@@ -107,6 +108,7 @@ const createNodeConfig = (isProduction) => {
     },
     external: [
       'fsevents',
+      '@napi-rs/magic-string', // FIXME:
       ...Object.keys(require('./package.json').dependencies),
       ...(isProduction
         ? []
@@ -247,6 +249,8 @@ function shimDepsPlugin(deps) {
             }
             console.log(`shimmed: ${file}`)
           }
+
+          console.log(magicString.generateMap({ hires: true }), id)
 
           return {
             code: magicString.toString(),

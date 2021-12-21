@@ -1,4 +1,5 @@
-import MagicString from 'magic-string'
+// import MagicString from 'magic-string'
+import { MagicString } from '@napi-rs/magic-string'
 import type { ResolvedConfig } from '..'
 import type { Plugin } from '../plugin'
 import { arraify } from '../utils'

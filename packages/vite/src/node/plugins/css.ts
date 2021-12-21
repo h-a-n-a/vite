@@ -33,7 +33,8 @@ import {
   fileToUrl,
   checkPublicFile
 } from './asset'
-import MagicString from 'magic-string'
+// import MagicString from 'magic-string'
+import { MagicString } from '@napi-rs/magic-string'
 import type * as Postcss from 'postcss'
 import type Sass from 'sass'
 // We need to disable check of extraneous import which is buggy for stylus,

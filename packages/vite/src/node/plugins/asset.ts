@@ -7,7 +7,8 @@ import type { ResolvedConfig } from '../config'
 import { cleanUrl } from '../utils'
 import { FS_PREFIX } from '../constants'
 import type { OutputOptions, PluginContext, RenderedChunk } from 'rollup'
-import MagicString from 'magic-string'
+// import MagicString from 'magic-string'
+import { MagicString } from '@napi-rs/magic-string'
 import { createHash } from 'crypto'
 import { normalizePath } from '../utils'
 
@@ -104,7 +105,9 @@ export function assetPlugin(config: ResolvedConfig): Plugin {
       if (s) {
         return {
           code: s.toString(),
-          map: config.build.sourcemap ? s.generateMap({ hires: true }) : null
+          map: config.build.sourcemap
+            ? s.generateMap({ hires: true }) ?? undefined
+            : null
         }
       } else {
         return null

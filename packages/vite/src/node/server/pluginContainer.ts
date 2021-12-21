@@ -53,7 +53,8 @@ import acornClassFields from 'acorn-class-fields'
 import acornStaticClassFeatures from 'acorn-static-class-features'
 import type { RawSourceMap } from '@ampproject/remapping/dist/types/types'
 import { combineSourcemaps } from '../utils'
-import MagicString from 'magic-string'
+// import MagicString from 'magic-string'
+import { MagicString } from '@napi-rs/magic-string'
 import type { FSWatcher } from 'chokidar'
 import {
   createDebugger,
