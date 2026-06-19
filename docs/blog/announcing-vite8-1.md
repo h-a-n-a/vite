@@ -67,6 +67,14 @@ Bundled Dev Mode would allow serving bundled files not only in production but al
 
 :::
 
+::: details How does it stay fast? Lazy compilation
+
+A naive bundled dev server would have to bundle the entire application before it can serve the first request, reintroducing exactly the slow startup that Vite's unbundled approach was designed to avoid.
+
+Bundled dev mode avoids this with **lazy compilation**. On startup, Vite does not bundle the whole app. Instead, modules are compiled on demand as the browser requests them, so only the code needed for the page you are actually looking at gets bundled. This keeps Vite's original on-demand philosophy intact while still serving bundled output, so cold start stays fast no matter how large the application grows.
+
+:::
+
 Currently, it focuses on the browser side and the basic plugins and the main features. If you are using a third party plugin, it may not work with this mode. If you are using a minor feature, it may not work as well. We are working on expanding the support and preparing a document that clarifies the changes that may be needed on the plugin side. See [the design document](https://example.com) for more details about the roadmap.
 
 // TODO: add link to the design document
